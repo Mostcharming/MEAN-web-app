@@ -12,8 +12,7 @@ import { AuthService } from "../../auth/auth.service";
   styleUrls: ["./post-list.component.css"]
 })
 
-// implements oninit hooks this class onto the lifecylcle of the angular app
-// ondestroy is a lifecycle hook called when a service is destroyed
+
 export class PostListComponent implements OnInit, OnDestroy {
 
   // this post can be looped through in postcompHtml
@@ -24,26 +23,25 @@ export class PostListComponent implements OnInit, OnDestroy {
   // ];
   posts: Post[] = [];
   isLoading = false;
-  // the 4 lines below are for the paginator
+ 
   totalPosts = 0;
   postsPerPage = 2;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
   userId: string;
-  // subscription is under private in order to prevent data leak
+
   private postsSub: Subscription;
-  // adding the listener too know if user is authenticated or not, returns a value of either true or false
+
   private authStatusSub: Subscription;
 
-  // importing the authServive into postList as private so authentication wont be tampered with from outside
+
   constructor(
     // this is used to map the post service here
     public postsService: PostsService,
     private authService: AuthService
   ) {}
 
-    // isLoading is true for many instances so the matSpinner shows during evevry process
 
   ngOnInit() {
     this.isLoading = true;
@@ -67,7 +65,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       });
   }
 
-  // for the paginator
+
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
