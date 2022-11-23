@@ -1,6 +1,3 @@
-// this is added to the root folder of the app so it gets called all through the app
-// so every outgoing http request will have this interceptor attached to it
-
 import {
   HttpInterceptor,
   HttpRequest,
