@@ -1,9 +1,7 @@
 import { Component, OnInit, } from "@angular/core";
 // import { Subscription } from "rxjs";
 
-// this is the best place to run the autoAuthentication so anytime the angular app is fired
-// this method gets called first
-// it looks for the token in the local storage
+
 import { AuthService } from "./auth/auth.service";
 // import { ErrorService } from "./error/error.service";
 
