@@ -1,10 +1,10 @@
-<!-- majority of the tags here are coming from manugular material a substitute of material ui in react -->
+
 
 <mat-card>
-  <!-- show spinner if is loading is true -->
+
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-  <!-- show form if is loading is false -->
+
   <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
     <mat-form-field>
       <input
@@ -19,8 +19,7 @@
     </mat-form-field>
 
     <div>
-      <!-- click here is a function later called in the ts component -->
-      <!-- the input here is set as invincible so the click in button activates the input -->
+ 
       and upon uploading the image
       <button mat-stroked-button type="button" (click)="filePicker.click()">
         Pick Image
@@ -28,8 +27,7 @@
       <input type="file" #filePicker (change)="onImagePicked($event)" />
     </div>
 
-    <!-- this code is to preveiw the image uploaded -->
-    <!-- display this div if the imagereview is not empty and imagePreview has a value -->
+
 
     <div
       class="image-preview"
