@@ -1,11 +1,8 @@
-// the inbuilt validator we used before doesnt have codes for file type
-// so this file is for writing our own filetypeValidator
-//it contains file identifiers under cases for either jpeg, png or others
+
 
 import { AbstractControl } from "@angular/forms";
 import { Observable, Observer, of } from "rxjs";
 
-// the code is written asynchronosly hence a promise is called
 export const mimeType = (
   control: AbstractControl
 ): Promise<{ [key: string]: any }> | Observable<{ [key: string]: any }> => {
