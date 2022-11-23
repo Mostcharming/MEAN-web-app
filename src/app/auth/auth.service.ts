@@ -10,12 +10,12 @@ const BACKEND_URL = environment.apiUrl + "/user/";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
-  // by default authenticatiob is false
+
   private isAuthenticated = false;
   private token: string;
   private tokenTimer: any;
   private userId: string;
-  // authStatus listener gets the auth value either true or false
+
   private authStatusListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -24,7 +24,7 @@ export class AuthService {
     return this.token;
   }
 
-  // making sure the user is authenticated and this short method can be called anywhere
+
   getIsAuth() {
     return this.isAuthenticated;
   }
@@ -37,7 +37,7 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  // for creating a new user
+
   createUser(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http.post(BACKEND_URL + "/signup", authData).subscribe(
@@ -84,7 +84,6 @@ export class AuthService {
       );
   }
 
-  // this is for auto authenticating users form the token stored in local storage
 
   autoAuthUser() {
     const authInformation = this.getAuthData();
@@ -102,8 +101,7 @@ export class AuthService {
     }
   }
 
-  // on logout, we want to remove the token from the system, clear the timer and userid
-  // then head back to the homepage, for the redirecting to work we need to implement routing in the constructor
+
   logout() {
     this.token = null;
     this.isAuthenticated = false;
@@ -114,8 +112,7 @@ export class AuthService {
     this.router.navigate(["/"]);
   }
 
-  // this sets timer towards the expiriation of the token saved in local storage converted to
-  // seconds from miliseconds
+
   private setAuthTimer(duration: number) {
     console.log("Setting timer: " + duration);
     this.tokenTimer = setTimeout(() => {
@@ -123,22 +120,21 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  // saving the token to local storage so it doesnt clear upon refreshing the webPage
+
   private saveAuthData(token: string, expirationDate: Date, userId: string) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
   }
 
-  // upon logout when we want to clear auth data
+
   private clearAuthData() {
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
     localStorage.removeItem("userId");
   }
 
-  // this is for getting the authData from local storage
-  //we r returning nothing if there's no authentication, meaning we have no admin priviledges
+
   private getAuthData() {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
