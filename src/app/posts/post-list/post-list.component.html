@@ -1,0 +1,44 @@
+<!-- ngIf is a condition maker, unless the condition is true  then run the child ngIf-->
+<!-- the matspinner will run if isLoading is true -->
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
+  <!-- ngFor loops through the posts array in compTs and render each post -->
+  <mat-expansion-panel *ngFor="let post of posts">
+    <mat-expansion-panel-header>
+      {{ post.title }}
+    </mat-expansion-panel-header>
+
+    <!-- any array type brackets indicates there are more than 1 value to the element -->
+    <!-- angular circles throughand picks the current value needed for the element -->
+    <!-- in this case it's fetching the image and displayong it on the post list -->
+    <div class="post-image">
+      <img [src]="post.imagePath" [alt]="post.title" />
+    </div>
+
+    <p>{{ post.content }}</p>
+
+    <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
+      <!-- using link to take user to edit page after clicking it -->
+      <!-- for routerLink we wrapped it in barces because we want to attach postId -->
+      <!-- and the postId will always vary depending on the post edited -->
+      <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(post.id)">
+        DELETE
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!-- paginator comes from the angularUI -->
+<mat-paginator
+  [length]="totalPosts"
+  [pageSize]="postsPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)"
+  *ngIf="posts.length > 0"
+></mat-paginator>
+
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
+  No posts added yet!
+</p>

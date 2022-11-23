@@ -1,0 +1,37 @@
+<!-- for the bar at the top of the -->
+
+<mat-toolbar color="primary">
+  <!-- the bar at the top contains links to other pages -->
+  <span>
+    <a routerLink="/">MyMessages</a>
+  </span>
+
+  <!-- adding lots of space between my messages and the other buttons, the space width is coming from angular -->
+  <span class="spacer"></span>
+
+  <ul>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/create" routerLinkActive="mat-accent"
+        >New Post</a
+      >
+    </li>
+
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"
+        >Login</a
+      >
+    </li>
+
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
+        >Signup</a
+      >
+    </li>
+
+    <!-- logging out users on the app -->
+    <!-- only  show this if user is authenticated -->
+    <li *ngIf="userIsAuthenticated">
+      <button mat-button (click)="onLogout()">Logout</button>
+    </li>
+  </ul>
+</mat-toolbar>
